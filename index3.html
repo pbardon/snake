@@ -1,0 +1,24 @@
+<html>
+  <head>
+    <title>Snake!</title>
+    <link rel="stylesheet" href="snake.css" media="screen">
+    <script src="underscore.js"></script>
+    <script src="jquery.js"></script>
+    <script src="snake.js"></script>
+    <script src="snake_ui.js"></script>
+  </head>
+  <body>
+    <h1>Snake!</h1>
+    <h3>Play Snake!</h3>
+
+    <div id="board"></div>
+
+
+   <script charset="utf-8">
+      $(function () {
+        var snakeGame = new S.SnakeUI($("#board"));
+        snakeGame.setUpBoard();
+      });
+    </script>
+  </body>
+</html>
