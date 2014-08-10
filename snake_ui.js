@@ -40,7 +40,16 @@
   SnakeUI.prototype.turn = function() {
     this.board.render();
     this.board.snake.move(this);
+
+    if (this.board.snake.points % 10 === 0) {
+      this.increaseSpeed();
+    }
   };
+
+  SnakeUI.prototype.increaseSpeed = function() {
+    clearInterval(this.interID);
+    this.interID = setInterval(this.turn.bind(this), (300 - this.board.snake.points))
+  }
 
   var handlekeyEvent = function(event) {
     if (event.keyCode === 65) {

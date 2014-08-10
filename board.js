@@ -7,15 +7,16 @@
     this.apples = [new S.Coord(4, 2)];
   }
 
+
   Board.prototype.render = function() {
+    $('#points').html(this.snake.points)
     for(var i = 0; i < 10; i++) {
       rowString = "";
       for(var j = 0; j < 10; j++){
         var setSnake = false;
         this.snake.seg.forEach(function(s) {
           if (s.x == j && s.y == i) {
-            colorSquare(i, j, 'red');
-            rowString += "S";
+            colorSquare(i, j, s.color);
             setSnake = true;
           }
         });
