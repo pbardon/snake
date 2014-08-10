@@ -4,7 +4,7 @@
 
   var Snake = S.Snake = function(dir) {
     this.dir = dir;
-    this.seg = [new Coord(4,4), new Coord(4,3)];
+    this.seg = [new Coord(4,3), new Coord(4,4)];
   };
 
   var Coord = S.Coord = function(x, y) {
@@ -18,61 +18,57 @@
       } else if (dir === "S") {
         this.y += 1;
       } else if (dir === "W") {
-        this.x -= 1;
-      } else if (dir === "E") {
         this.x += 1;
+      } else if (dir === "E") {
+        this.x -= 1;
       } else {
         return "wtf?";
       }
   }
 
-  Snake.prototype.move = function () {
-    snake = this;
-    snake.seg.forEach(function(coord) {
-      coord.plus(snake.dir);
-    });
+  Snake.prototype.move = function (ui) {
+    var head = this.seg[0];
+    this.ateApple(head, ui);
+    if (this.apple) {
+      console.log('ate apple')
+    }else {
+      var tail = this.seg.pop(1);
+    }
+    if (this.outOfBounds(head)) {
+      ui.gameOver();
+    };
+    var newHead = new Coord(head.x, head.y);
+    newHead.plus(this.dir);
+    this.seg.unshift(newHead);
   };
+
+  Snake.prototype.outOfBounds = function(head) {
+    if (head.x < 0 || head.y < 0) {
+      return true;
+    }else if (head.x > 9 || head.y > 9){
+      return true;
+    }else {
+      return false;
+    }
+  };
+
+
+  Snake.prototype.ateApple = function(head, ui) {
+    var snake = this;
+    this.apple = false;
+    ui.board.apples.forEach(function(apple) {
+      if (head.x === apple.x && head.y == apple.y){
+        var ind = ui.board.apples.indexOf(apple);
+        ui.board.apples.splice(ind, 1);
+        snake.apple = true;
+      }
+    });
+
+  };
+
 
   Snake.prototype.turn = function(newDir) {
     this.dir = newDir
   };
 
-
-  var Board = S.Board = function() {
-    this.snake = new Snake("N");
-    this.apples = [];
-  }
-
-  Board.prototype.render = function() {
-
-
-    for(var i = 0; i < 9; i++) {
-      rowString = "";
-      for(var j = 0; j < 9; j++){
-        var setSnake = false;
-        this.snake.seg.forEach(function(s) {
-          if (s.x == j && s.y == i) {
-            S.SnakeUI.colorSquare(j, i);
-            rowString += "S";
-            setSnake = true;
-          }
-        });
-        if (!setSnake) {
-          rowString += ".";
-        }
-      }
-      console.log(rowString)
-    }
-    console.log();
-    console.log();
-    console.log();
-    console.log('_______________');
-  }
-
 })(this);
-
-
-// board = new this.S.Board();
-// board.render();
-// board.snake.move();
-// board.render();

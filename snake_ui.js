@@ -8,23 +8,13 @@
   SnakeUI.STEP_MILLIS = 100;
 
   SnakeUI.prototype.setUpBoard = function () {
-    this.$el.html(buildBoard(10));
-    debugger;
-    start();
+    this.$el.html(this.buildBoard(10));
+    this.start();
   };
 
-  SnakeUI.prototype.render = function () {
-    var ui = this;
-  };
 
-  SnakeUI.prototype.colorSquare = function(x, y) {
-    $square = $(".row" + x + " .col" + y);
-    debugger;
-    $square.css('background-color', 'red');
-  };
 
-  var buildBoard = function(num){
-    var that = this;
+  SnakeUI.prototype.buildBoard = function(num){
     var squareString = "";
     _.times(num, function (i) {
       squareString += "<div class='row" + i + "'>";
@@ -36,17 +26,21 @@
     return squareString;
   };
 
-  var start = function() {
-    var board = new S.Board();
-    $(SnakeUI.$el).on("keydown", handlekeyEvent.bind(board));
-    setInterval(turn.bind(board), 100);
+  SnakeUI.prototype.start = function() {
+    this.board = new S.Board();
+    $(window).on("keydown", handlekeyEvent.bind(this.board));
+    this.interID = setInterval(this.turn.bind(this), 200);
   };
 
-  var turn = function() {
-    this.render.bind(this);
-    this.snake.move();
-  }
+  SnakeUI.prototype.gameOver = function() {
+    clearInterval(this.interID);
+    this.board.renderGameOver();
+  };
 
+  SnakeUI.prototype.turn = function() {
+    this.board.render();
+    this.board.snake.move(this);
+  };
 
   var handlekeyEvent = function(event) {
     if (event.keyCode === 65) {
