@@ -39,6 +39,9 @@
     };
     var newHead = new Coord(head.x, head.y);
     newHead.plus(this.dir);
+    if (this.checkBodyCollision(newHead)){
+      ui.gameOver();
+    }
     this.seg.unshift(newHead);
   };
 
@@ -52,6 +55,16 @@
     }
   };
 
+  Snake.prototype.checkBodyCollision = function(nh) {
+    var snake = this;
+    var collision = false;
+    this.seg.forEach(function(segment){
+      if(nh.x === segment.x && nh.y === segment.y){
+        collision = true;
+      }
+    });
+    return collision;
+  };
 
   Snake.prototype.ateApple = function(head, ui) {
     var snake = this;

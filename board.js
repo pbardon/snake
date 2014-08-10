@@ -50,15 +50,12 @@
 
   Board.prototype.randomCoord = function() {
     var board = this;
-    var validCoord = false;
     var newX = Math.floor(Math.random() * 10);
     var newY = Math.floor(Math.random() * 10);
     while (!this.checkCoord(newX, newY)) {
       newX = Math.floor(Math.random() * 10);
       newY = Math.floor(Math.random() * 10);
     }
-    console.log("random x:" + newX);
-    console.log("random y:" + newY);
     return [newX, newY];
 
   };
