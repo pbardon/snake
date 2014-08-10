@@ -29,7 +29,7 @@
   SnakeUI.prototype.start = function() {
     this.board = new S.Board();
     $(window).on("keydown", handlekeyEvent.bind(this.board));
-    this.interID = setInterval(this.turn.bind(this), 200);
+    this.interID = setInterval(this.turn.bind(this), 300);
   };
 
   SnakeUI.prototype.gameOver = function() {

@@ -60,6 +60,7 @@
       if (head.x === apple.x && head.y == apple.y){
         var ind = ui.board.apples.indexOf(apple);
         ui.board.apples.splice(ind, 1);
+        ui.board.placeApple();
         snake.apple = true;
       }
     });
