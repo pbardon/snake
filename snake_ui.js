@@ -3,12 +3,13 @@
 
   var SnakeUI = S.SnakeUI = function($rootEl) {
     this.$el = $rootEl;
+    this.speedCounter = 0;
   };
 
   SnakeUI.STEP_MILLIS = 100;
 
   SnakeUI.prototype.setUpBoard = function () {
-    this.$el.html(this.buildBoard(10));
+    this.$el.html(this.buildBoard(15));
     this.start();
   };
 
@@ -29,27 +30,37 @@
   SnakeUI.prototype.start = function() {
     this.board = new S.Board();
     $(window).on("keydown", handlekeyEvent.bind(this.board));
-    this.interID = setInterval(this.turn.bind(this), 300);
+    this.interID = setInterval(this.turn.bind(this), 250);
   };
 
   SnakeUI.prototype.gameOver = function() {
     clearInterval(this.interID);
     this.board.renderGameOver();
+    this.stopGame();
   };
 
   SnakeUI.prototype.turn = function() {
     this.board.render();
     this.board.snake.move(this);
 
-    if (this.board.snake.points % 10 === 0) {
-      this.increaseSpeed();
-    }
+    // if (this.board.snake.points % 5 === 0 && this.board.snake.points !== 0) {
+    //   this.increaseSpeed();
+    //   this.increased = true;
+    // }
   };
 
   SnakeUI.prototype.increaseSpeed = function() {
-    clearInterval(this.interID);
-    this.interID = setInterval(this.turn.bind(this), (300 - this.board.snake.points))
-  }
+    if (!this.increased) {
+      this.speedCounter += 1;
+      clearInterval(this.interID);
+      clearInterval(this.speedID);
+      this.speedId = setInterval(this.turn.bind(this), (300 - this.speedCounter));
+    }
+  };
+
+  SnakeUI.prototype.stopGame = function() {
+    clearInterval(this.speedId);
+  };
 
   var handlekeyEvent = function(event) {
     if (event.keyCode === 65) {

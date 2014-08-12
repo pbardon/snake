@@ -5,25 +5,28 @@
   var Snake = S.Snake = function(dir) {
     this.dir = dir;
     this.points = 0;
-    this.seg = [new Coord(4,5, 'red'), new Coord(4,6, 'orange')];
+    this.seg = [new Coord(10,10, '#00ff00'), new Coord(10,11, '#00ff00')];
   };
 
   var Coord = S.Coord = function(x, y, color) {
     this.color = color;
     this.x = x;
     this.y = y;
-  }
+  };
 
-  Snake.COLORS = ['#FF0000', '#FF3100', '#FF720D', '#B30CE8', '#F8FF00', '#D5FF00', '#0006FF', '#00FFFA', '#8300E8', '#E800CD'];
+
+  Snake.COLORS = ['#ff00ff', '#00ffff', '#00ff00', '#ffff00', '#ff0000', '#0000ff', '#7920FF', '#FD0987', '#FF3300', '#E800CD'];
 
   Snake.prototype.ateApple = function(head, ui) {
     var snake = this;
     this.apple = false;
     ui.board.apples.forEach(function(apple) {
       if (head.x === apple.x && head.y == apple.y){
+        $('.row' + apple.y + ' .col' + apple.x).removeClass('apple');
         var ind = ui.board.apples.indexOf(apple);
         ui.board.apples.splice(ind, 1);
         ui.board.placeApple();
+        ui.increased = false;
         snake.points++;
         snake.apple = true;
       }
@@ -72,7 +75,7 @@
   Snake.prototype.outOfBounds = function(head) {
     if (head.x < 0 || head.y < 0) {
       return true;
-    }else if (head.x > 9 || head.y > 9){
+    }else if (head.x > 14 || head.y > 14){
       return true;
     }else {
       return false;

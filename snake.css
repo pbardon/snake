@@ -1,16 +1,31 @@
 body {
   text-align: center;
-  width: 500px;
+  height: 100%;
+  width: 100%;
+  background-color: grey;
 }
 
 #board {
   margin: 0 auto;
-  width: 400px;
+  width: 600px;
+  left: 25%;
+  right: 25%;
+  position: absolute;
+  border: thin solid black;
+  background-color: white;
+  border-radius: 5px;
 }
 
 .square {
+  border-radius: 5px;
   display: inline-block;
-  outline: thin solid black;
-  width: 40px;
-  height: 40px;
+  margin: 5px;
+  width: 30px;
+  height: 30px;
+}
+
+.apple {
+  background-image: url("http://i.istockimg.com/file_thumbview_approve/17737693/3/stock-illustration-17737693-cartoon-apple.jpg");
+  background-size: contain;
+  background-repeat: no-repeat;
 }

@@ -10,9 +10,9 @@
 
   Board.prototype.render = function() {
     $('#points').html(this.snake.points)
-    for(var i = 0; i < 10; i++) {
+    for(var i = 0; i < 15; i++) {
       rowString = "";
-      for(var j = 0; j < 10; j++){
+      for(var j = 0; j < 15; j++){
         var setSnake = false;
         this.snake.seg.forEach(function(s) {
           if (s.x == j && s.y == i) {
@@ -22,7 +22,7 @@
         });
           this.apples.forEach(function(a) {
             if (a.x == j && a.y == i) {
-              colorSquare(i, j, 'green');
+              $('.row' + i + ' .col' + j).addClass('apple');
               rowString += "S";
               setSnake = true;
             }
@@ -36,8 +36,10 @@
   };
 
   Board.prototype.renderGameOver = function() {
-    for(var i = 0; i < 10; i++) {
-      for(var j = 0; j < 10; j++){
+    var apple = this.apples[0]
+    $('.row' + apple.y + ' .col' + apple.x).removeClass('apple')
+    for(var i = 0; i < 15; i++) {
+      for(var j = 0; j < 15; j++){
         colorSquare(i, j, 'black');
       }
     }
