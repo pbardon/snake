@@ -2,7 +2,8 @@
   var S = root.S = (root.S || {});
 
 
-  var Board = S.Board = function() {
+  var Board = S.Board = function(ui) {
+    this.ui = ui;
     this.snake = new S.Snake("N");
     this.apples = [new S.Coord(4, 2)];
   }

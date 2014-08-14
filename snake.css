@@ -2,7 +2,7 @@ body {
   text-align: center;
   height: 100%;
   width: 100%;
-  background-color: grey;
+  background-color: lightsteelblue;
 }
 
 #board {
@@ -28,4 +28,14 @@ body {
   background-image: url("http://i.istockimg.com/file_thumbview_approve/17737693/3/stock-illustration-17737693-cartoon-apple.jpg");
   background-size: contain;
   background-repeat: no-repeat;
+}
+
+
+#restart {
+  border-radius: 5px;
+  box-shadow: 1px 1px 2px #888888;
+  border: thin solid white;
+  padding: 5px;
+  background-color: #00ffff;
+  font-size: 20px;
 }

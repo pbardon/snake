@@ -28,7 +28,7 @@
   };
 
   SnakeUI.prototype.start = function() {
-    this.board = new S.Board();
+    this.board = new S.Board(this);
     $(window).on("keydown", handlekeyEvent.bind(this.board));
     this.interID = setInterval(this.turn.bind(this), 250);
   };
@@ -58,6 +58,16 @@
     }
   };
 
+  SnakeUI.prototype.pauseGame = function() {
+    clearInterval(this.interID);
+  };
+
+  SnakeUI.prototype.restartGame = function() {
+    this.interID = setInterval(this.turn.bind(this), 250);
+  };
+
+
+
   SnakeUI.prototype.stopGame = function() {
     clearInterval(this.speedId);
   };
@@ -71,8 +81,19 @@
       this.snake.turn("W");
     } else if (event.keyCode === 83) {
       this.snake.turn("S");
+    } else if (event.keyCode === 80) {
+       this.ui.pauseGame();
+    } else if (event.keyCode === 71) {
+      this.ui.restartGame();
     }
   };
+
+  window.onload = function() {
+   document.getElementById("restart").addEventListener('click', function() {
+      window.location.reload();
+   }, false);
+  };
+
 
 
 })(this);

@@ -5,7 +5,8 @@
   var Snake = S.Snake = function(dir) {
     this.dir = dir;
     this.points = 0;
-    this.seg = [new Coord(10,10, '#00ff00'), new Coord(10,11, '#00ff00')];
+    this.seg = [new Coord(10,10, '#ff0000'), new Coord(10,11, '#ff0000')];
+    this.colorIndex = 0;
   };
 
   var Coord = S.Coord = function(x, y, color) {
@@ -15,7 +16,7 @@
   };
 
 
-  Snake.COLORS = ['#ff00ff', '#00ffff', '#00ff00', '#ffff00', '#ff0000', '#0000ff', '#7920FF', '#FD0987', '#FF3300', '#E800CD'];
+  Snake.COLORS = ['#FF3300', '#FF9933', '#ffff00', '#00ff00', '#00ffff', '#0000ff', '#7920FF', '#FD0987', '#ff0000'];
 
   Snake.prototype.ateApple = function(head, ui) {
     var snake = this;
@@ -54,7 +55,7 @@
     var tail = this.seg[this.seg.length - 1]
     this.ateApple(head, ui);
     if (this.apple) {
-      tail.color =  this.randomColor();
+      tail.color =  this.newColor();
     }else {
       this.seg.pop(1);
     }
@@ -96,8 +97,9 @@
       }
   };
 
-  Snake.prototype.randomColor = function() {
-    var index = Math.floor(Math.random() * 10);
+  Snake.prototype.newColor = function() {
+    var index = this.colorIndex;
+    this.colorIndex = (this.colorIndex + 1) % 9;
     return Snake.COLORS[index];
   };
 
